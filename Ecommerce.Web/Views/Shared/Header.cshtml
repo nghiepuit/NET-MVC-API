@@ -1,0 +1,238 @@
+﻿@model IEnumerable<Ecommerce.Web.Models.ProductCategoryViewModel>
+<div class="container">
+    <header id="header" data-plugin-options="{'stickyEnabled': false, 'stickyEnableOnBoxed': false, 'stickyEnableOnMobile': false, 'stickyStartAt': 147, 'stickySetTop': '-147px', 'stickyChangeLogo': false}">
+        <div class="header-body">
+            <div class="header-top">
+                <div class="container">
+                    <div class="dropdowns-container">
+                        <div class="header-dropdown cur-dropdown">
+                            <a href="#">USD <i class="fa fa-caret-down"></i></a>
+
+                            <ul class="header-dropdownmenu">
+                                <li><a href="#">EUR</a></li>
+                                <li><a href="#">USD</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="header-dropdown lang-dropdown">
+                            <a href="#"><img src="/Assets/images/demos/shop/en.png" alt="English">English <i class="fa fa-caret-down"></i></a>
+
+                            <ul class="header-dropdownmenu">
+                                <li><a href="#"><img src="/Assets/images/demos/shop/en.png" alt="English">English</a></li>
+                                <li><a href="#"><img src="/Assets/images/demos/shop/fr.png" alt="French">French</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="compare-dropdown">
+                            <a href="#"><i class="fa fa-retweet"></i> Compare (2)</a>
+
+                            <div class="compare-dropdownmenu">
+                                <div class="dropdownmenu-wrapper">
+                                    <ul class="compare-products">
+                                        <li class="product">
+                                            <a href="#" class="btn-remove" title="Remove Product"><i class="fa fa-times"></i></a>
+                                            <h4 class="product-name"><a href="demo-shop-12-product-details.html">White top</a></h4>
+                                        </li>
+                                        <li class="product">
+                                            <a href="#" class="btn-remove" title="Remove Product"><i class="fa fa-times"></i></a>
+                                            <h4 class="product-name"><a href="demo-shop-12-product-details.html">Blue Women Shirt</a></h4>
+                                        </li>
+                                    </ul>
+
+                                    <div class="compare-actions">
+                                        <a href="#" class="action-link">Clear All</a>
+                                        <a href="#" class="btn btn-primary">Compare</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-menu-area">
+                        <a href="#">Links <i class="fa fa-caret-down"></i></a>
+                        <ul class="top-menu">
+                            <li><a href="demo-shop-12-myaccount.html">My Account</a></li>
+                            <li><a href="#">Daily Deal</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="demo-shop-12-blog.html">Blog</a></li>
+                            <li><a href="demo-shop-12-login.html">Log in</a></li>
+                        </ul>
+                    </div>
+                    <p class="welcome-msg">DEFAULT WELCOME MSG!</p>
+                </div>
+            </div>
+            <div class="header-container container">
+                <div class="header-row">
+                    <div class="header-column">
+                        <div class="header-logo">
+                            <a href="demo-shop-12.html">
+                                <img alt="Porto" width="111" height="51" src="/Assets/images/demos/shop/logo-shop-white.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-column">
+                        <div class="row">
+                            <div class="cart-area">
+                                <div class="custom-block">
+                                    <i class="fa fa-phone"></i>
+                                    <span>(+404) 158 14 25 78</span>
+                                    <span class="split"></span>
+                                    <a href="#">CONTACT US</a>
+                                </div>
+
+                                <div class="cart-dropdown">
+                                    <a href="#" class="cart-dropdown-icon">
+                                        <i class="minicart-icon"></i>
+                                        <span class="cart-info">
+                                            <span class="cart-qty">2</span>
+                                            <span class="cart-text">item(s)</span>
+                                        </span>
+                                    </a>
+
+                                    <div class="cart-dropdownmenu right">
+                                        <div class="dropdownmenu-wrapper">
+                                            <div class="cart-products">
+                                                <div class="product product-sm">
+                                                    <a href="#" class="btn-remove" title="Remove Product">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                    <figure class="product-image-area">
+                                                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
+                                                            <img src="/Assets/images/demos/shop/products/thumbs/cart-product1.jpg" alt="Product Name">
+                                                        </a>
+                                                    </figure>
+                                                    <div class="product-details-area">
+                                                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Blue Women Top</a></h2>
+
+                                                        <div class="cart-qty-price">
+                                                            1 X
+                                                            <span class="product-price">$65.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product product-sm">
+                                                    <a href="#" class="btn-remove" title="Remove Product">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                    <figure class="product-image-area">
+                                                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
+                                                            <img src="/Assets/images/demos/shop/products/thumbs/cart-product2.jpg" alt="Product Name">
+                                                        </a>
+                                                    </figure>
+                                                    <div class="product-details-area">
+                                                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Black Utility Top</a></h2>
+
+                                                        <div class="cart-qty-price">
+                                                            1 X
+                                                            <span class="product-price">$39.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="cart-totals">
+                                                Total: <span>$104.00</span>
+                                            </div>
+
+                                            <div class="cart-actions">
+                                                <a href="demo-shop-12-cart.html" class="btn btn-primary">View Cart</a>
+                                                <a href="demo-shop-12-checkout.html" class="btn btn-primary">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="header-search">
+                                <a href="#" class="search-toggle"><i class="fa fa-search"></i></a>
+                                <form action="#" method="get">
+                                    <div class="header-search-wrapper">
+                                        <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+                                        <select id="cat" name="cat">
+                                            <option value="">All Categories</option>
+                                            <option value="4">Fashion</option>
+                                            <option value="12">- Women</option>
+                                            <option value="13">- Men</option>
+                                            <option value="66">- Jewellery</option>
+                                            <option value="67">- Kids Fashion</option>
+                                            <option value="5">Electronics</option>
+                                            <option value="21">- Smart TVs</option>
+                                            <option value="22">- Cameras</option>
+                                            <option value="63">- Games</option>
+                                            <option value="7">Home &amp; Garden</option>
+                                            <option value="11">Motors</option>
+                                            <option value="31">- Cars and Trucks</option>
+                                            <option value="32">- Motorcycles &amp; Powersports</option>
+                                            <option value="33">- Parts &amp; Accessories</option>
+                                            <option value="34">- Boats</option>
+                                            <option value="57">- Auto Tools &amp; Supplies</option>
+                                        </select>
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-container header-nav">
+                <div class="container">
+                    <div class="main-dropdown-menu shown">
+                        <a href="#" class="main-toggle-btn">
+                            <i class="fa fa-bars"></i>DANH MỤC SẢN PHẨM
+                        </a>
+
+                        <div class="header-nav-main">
+                            <nav>
+                                <ul class="nav nav-pills" id="mainNav">
+                                    <li class="dropdown dropdown-full-color dropdown-primary">
+                                        <a href="trang-chu.html">
+                                            Trang Chủ
+                                        </a>
+                                    </li>
+                                    @foreach (var category in Model.Where(x => x.ParentID == null))
+                                    {
+                                        var url = "/" + category.Alias + ".html";
+                                        var childCategories = Model.Where(x => x.ParentID == category.ID);
+                                        <li class="dropdown dropdown-full-color dropdown-primary">
+                                            
+                                            @if (childCategories.Count() > 0)
+                                            {
+                                                <a class="dropdown-toggle" href="@url">
+                                                    @category.Name
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var childCategory in childCategories)
+                                                    {
+                                                        var childUrl = "/" + childCategory.Alias + ".html";
+                                                        <li>
+                                                            <a href="@childUrl">
+                                                                @childCategory.Name
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                                <a href="@url">
+                                                    @category.Name
+                                                </a>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="custom-link-menu">
+                        <a href="#">FASHION PROMO</a>
+                        <a href="#">WOMAN SHOES</a>
+                        <a href="#">50% OFF FASHION</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

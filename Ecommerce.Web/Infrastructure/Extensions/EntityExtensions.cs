@@ -17,7 +17,6 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             postCategory.DisplayOrder = postCategoryVm.DisplayOrder;
             postCategory.Image = postCategoryVm.Image;
             postCategory.HomeFlag = postCategoryVm.HomeFlag;
-
             postCategory.CreatedDate = postCategoryVm.CreatedDate;
             postCategory.CreatedBy = postCategoryVm.CreatedBy;
             postCategory.UpdatedDate = postCategoryVm.UpdatedDate;
@@ -37,7 +36,6 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             productCategory.DisplayOrder = productCategoryVm.DisplayOrder;
             productCategory.Image = productCategoryVm.Image;
             productCategory.HomeFlag = productCategoryVm.HomeFlag;
-
             productCategory.CreatedDate = productCategoryVm.CreatedDate;
             productCategory.CreatedBy = productCategoryVm.CreatedBy;
             productCategory.UpdatedDate = productCategoryVm.UpdatedDate;

@@ -32,21 +32,19 @@ namespace Ecommerce.Web.App_Start
         private void ConfigAutofac(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly()); //Register WebApi Controllers
-
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
-
             builder.RegisterType<EcommerceDbContext>().AsSelf().InstancePerRequest();
             builder.RegisterType<RoleStore<AppRole>>().As<IRoleStore<AppRole, string>>();
+
             //Asp.net Identity
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<AppUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
-
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
-
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
