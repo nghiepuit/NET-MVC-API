@@ -95,7 +95,7 @@ namespace Ecommerce.Web.Api
                         return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
                     }
                     else
-                        return request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(",", result.Errors));
+                        return request.CreateErrorResponse(HttpStatusCode.Conflict, string.Join(",", result.Errors));
                 }
                 catch (NameDuplicatedException dex)
                 {
@@ -135,7 +135,7 @@ namespace Ecommerce.Web.Api
                         return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
                     }
                     else
-                        return request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(",", result.Errors));
+                        return request.CreateErrorResponse(HttpStatusCode.Conflict, string.Join(",", result.Errors));
                 }
                 catch (NameDuplicatedException dex)
                 {

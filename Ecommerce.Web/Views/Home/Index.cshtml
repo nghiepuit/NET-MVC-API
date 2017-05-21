@@ -52,339 +52,54 @@
 <div class="container">
     <div class="home-products-container">
         <ul class="products-grid columns4">
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product1.jpg" alt="Product Name">
-                        </a>
+            @foreach (var product in Model.LastestProducts)
+            {
+                var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+                <li>
+                    <div class="product">
+                        <figure class="product-image-area">
+                            <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
+                                @product.ThumbnailImage
+                            </a>
 
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="discount">-10%</span></div>
-                        <div class="product-label"><span class="new">New</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Noa Sheer Blouse</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:60%"></div>
+                            <a href="#" class="product-quickview">
+                                <i class="fa fa-share-square-o"></i>
+                                <span>Quick View</span>
+                            </a>
+                            <div class="product-label"><span class="discount">-10%</span></div>
+                            <div class="product-label"><span class="new">New</span></div>
+                        </figure>
+                        <div class="product-details-area">
+                            <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">
+                                @product.Name
+                            </a></h2>
+                            <div class="product-ratings">
+                                <div class="ratings-box">
+                                    <div class="rating" style="width:60%"></div>
+                                </div>
+                            </div>
+
+                            <div class="product-price-box">
+                                <span class="old-price">$99.00</span>
+                                <span class="product-price">@product.Price.ToString("N0")</span>
+                            </div>
+
+                            <div class="product-actions">
+                                <a href="#" class="addtowishlist" title="Add to Wishlist">
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                                <a href="#" class="addtocart" title="Add to Cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Add to Cart</span>
+                                </a>
+                                <a href="#" class="comparelink" title="Add to Compare">
+                                    <i class="glyphicon glyphicon-signal"></i>
+                                </a>
                             </div>
                         </div>
-
-                        <div class="product-price-box">
-                            <span class="old-price">$99.00</span>
-                            <span class="product-price">$89.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
                     </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product2.jpg" alt="Product Name">
-                            <img src="/Assets/images/demos/shop/products/shop10/product2-2.jpg" alt="Product Name" class="product-hover-image">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="discount">-25%</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Women Fashion Blouse</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="old-price">$120.00</span>
-                            <span class="product-price">$90.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product3.jpg" alt="Product Name">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Dress</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:60%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="product-price">$70.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product4.jpg" alt="Product Name">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="discount">-20%</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Sweater</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:80%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="old-price">$100.00</span>
-                            <span class="product-price">$90.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product5.jpg" alt="Product Name">
-                            <img src="/Assets/images/demos/shop/products/shop10/product5-2.jpg" alt="Product Name" class="product-hover-image">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="new">New</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Jacket</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:20%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="product-price">$230.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product6.jpg" alt="Product Name">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="discount">-20%</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Blue Denim Jeans</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:100%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="old-price">$220.00</span>
-                            <span class="product-price">$180.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product7.jpg" alt="Product Name">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Black top</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="product-price">$60.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="product">
-                    <figure class="product-image-area">
-                        <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                            <img src="/Assets/images/demos/shop/products/shop10/product8.jpg" alt="Product Name">
-                            <img src="/Assets/images/demos/shop/products/shop10/product8-2.jpg" alt="Product Name" class="product-hover-image">
-                        </a>
-
-                        <a href="#" class="product-quickview">
-                            <i class="fa fa-share-square-o"></i>
-                            <span>Quick View</span>
-                        </a>
-                        <div class="product-label"><span class="new">New</span></div>
-                    </figure>
-                    <div class="product-details-area">
-                        <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Pink Fashion Dress</a></h2>
-                        <div class="product-ratings">
-                            <div class="ratings-box">
-                                <div class="rating" style="width:60%"></div>
-                            </div>
-                        </div>
-
-                        <div class="product-price-box">
-                            <span class="product-price">$90.00</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <a href="#" class="addtowishlist" title="Add to Wishlist">
-                                <i class="fa fa-heart"></i>
-                            </a>
-                            <a href="#" class="addtocart" title="Add to Cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Add to Cart</span>
-                            </a>
-                            <a href="#" class="comparelink" title="Add to Compare">
-                                <i class="glyphicon glyphicon-signal"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+                </li>
+            }
         </ul>
     </div>
 </div>
@@ -895,4 +610,3 @@
         </div>
     </div>
 </div>
-

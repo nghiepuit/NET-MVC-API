@@ -10,11 +10,13 @@ namespace Ecommerce.Web.Controllers
     public class HomeController : Controller
     {
         private IProductCategoryService _productCategoryService;
+        private IProductService _productService;
         private ICommonService _commonService;
 
-        public HomeController(IProductCategoryService productCategoryService, ICommonService commonService)
+        public HomeController(IProductCategoryService productCategoryService, IProductService productService, ICommonService commonService)
         {
             this._productCategoryService = productCategoryService;
+            this._productService = productService;
             this._commonService = commonService;
         }
 
@@ -24,6 +26,10 @@ namespace Ecommerce.Web.Controllers
             var slideViewModel = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
             var homeViewModel = new HomeViewModel();
             homeViewModel.Slides = slideViewModel;
+
+            var lastestProduct = _productService.GetLastest(8);
+            var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProduct);
+            homeViewModel.LastestProducts = lastestProductViewModel;
             return View(homeViewModel);
         }
 
