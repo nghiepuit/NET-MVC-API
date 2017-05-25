@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
-using Ecommerce.Common.Exceptions;
-using Ecommerce.Model.Models;
-using Ecommerce.Service;
-using Ecommerce.Web.Infrastructure.Core;
-using Ecommerce.Web.Infrastructure.Extensions;
-using Ecommerce.Web.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Ecommerce.Common.Exceptions;
+using Ecommerce.Model.Models;
+using Ecommerce.Service;
+using Ecommerce.Web.App_Start;
+using Ecommerce.Web.Infrastructure.Core;
+using Ecommerce.Web.Infrastructure.Extensions;
+using Ecommerce.Web.Models;
+using Ecommerce.Web.Models.DataContracts;
 
 namespace Ecommerce.Web.Api
 {
@@ -18,8 +22,12 @@ namespace Ecommerce.Web.Api
     [Authorize]
     public class AppRoleController : ApiControllerBase
     {
-        public AppRoleController(IErrorService errorService) : base(errorService)
+        private IPermissionService _permissionService;
+        private IFunctionService _functionService;
+        public AppRoleController(IErrorService errorService, IFunctionService functionService, IPermissionService permissionService) : base(errorService)
         {
+            _functionService = functionService;
+            _permissionService = permissionService;
         }
 
         [Route("getlistpaging")]
@@ -67,6 +75,119 @@ namespace Ecommerce.Web.Api
 
                 return response;
             });
+        }
+        [Route("getAllPermission")]
+        [HttpGet]
+        public HttpResponseMessage GetAllPermission(HttpRequestMessage request, string functionId)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                List<PermissionViewModel> permissions = new List<PermissionViewModel>();
+                HttpResponseMessage response = null;
+                var roles = AppRoleManager.Roles.Where(x => x.Name != "SuperAdmin").ToList();
+                var listPermission = _permissionService.GetByFunctionId(functionId).ToList();
+                if (listPermission.Count == 0)
+                {
+                    foreach (var item in roles)
+                    {
+                        permissions.Add(new PermissionViewModel()
+                        {
+                            RoleId = item.Id,
+                            CanCreate = false,
+                            CanDelete = false,
+                            CanRead = false,
+                            CanUpdate = false,
+                            AppRole = new ApplicationRoleViewModel()
+                            {
+                                Id = item.Id,
+                                Description = item.Description,
+                                Name = item.Name
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    foreach (var item in roles)
+                    {
+                        if (!listPermission.Any(x => x.RoleId == item.Id))
+                        {
+                            permissions.Add(new PermissionViewModel()
+                            {
+                                RoleId = item.Id,
+                                CanCreate = false,
+                                CanDelete = false,
+                                CanRead = false,
+                                CanUpdate = false,
+                                AppRole = new ApplicationRoleViewModel()
+                                {
+                                    Id = item.Id,
+                                    Description = item.Description,
+                                    Name = item.Name
+                                }
+                            });
+                        }
+                        permissions = Mapper.Map<List<Permission>, List<PermissionViewModel>>(listPermission);
+                    }
+                }
+                response = request.CreateResponse(HttpStatusCode.OK, permissions);
+
+                return response;
+            });
+        }
+
+        [HttpPost]
+        [Route("savePermission")]
+        public HttpResponseMessage SavePermission(HttpRequestMessage request, SavePermissionRequest data)
+        {
+            if (ModelState.IsValid)
+            {
+
+                _permissionService.DeleteAll(data.FunctionId);
+                Permission permission = null;
+                foreach (var item in data.Permissions)
+                {
+                    permission = new Permission();
+                    permission.UpdatePermission(item);
+                    permission.FunctionId = data.FunctionId;
+                    _permissionService.Add(permission);
+
+
+                }
+                var functions = _functionService.GetAllWithParentID(data.FunctionId);
+                if (functions.Any())
+                {
+                    foreach (var item in functions)
+                    {
+                        _permissionService.DeleteAll(item.ID);
+
+                        foreach (var p in data.Permissions)
+                        {
+                            var childPermission = new Permission();
+                            childPermission.FunctionId = item.ID;
+                            childPermission.RoleId = p.RoleId;
+                            childPermission.CanRead = p.CanRead;
+                            childPermission.CanCreate = p.CanCreate;
+                            childPermission.CanDelete = p.CanDelete;
+                            childPermission.CanUpdate = p.CanUpdate;
+                            _permissionService.Add(childPermission);
+                        }
+                    }
+                }
+                try
+                {
+                    _permissionService.SaveChange();
+                    return request.CreateResponse(HttpStatusCode.OK, "Lưu quyền thành cống");
+                }
+                catch (Exception ex)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+            }
+            else
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
         }
 
         [Route("detail/{id}")]
@@ -138,9 +259,15 @@ namespace Ecommerce.Web.Api
         public HttpResponseMessage Delete(HttpRequestMessage request, string id)
         {
             var appRole = AppRoleManager.FindById(id);
-
-            AppRoleManager.Delete(appRole);
-            return request.CreateResponse(HttpStatusCode.OK, id);
+            try
+            {
+                AppRoleManager.Delete(appRole);
+                return request.CreateResponse(HttpStatusCode.OK, id);
+            }
+            catch (Exception ex)
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
     }
 }

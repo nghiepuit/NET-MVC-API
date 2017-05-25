@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Ecommerce.Model.Models;
+using Newtonsoft.Json;
+using Ecommerce.Web.Infrastructure.Core;
+using Ecommerce.Service;
+using Ecommerce.Web.Models;
 
 namespace Ecommerce.Web.Providers
 {
@@ -39,6 +43,9 @@ namespace Ecommerce.Web.Providers
             }
             if (user != null)
             {
+                var permissions = ServiceFactory.Get<IPermissionService>().GetByUserId(user.Id);
+                var permissionViewModels = AutoMapper.Mapper.Map<ICollection<Permission>,ICollection<PermissionViewModel>>(permissions);
+                var roles = userManager.GetRoles(user.Id);
                 ClaimsIdentity identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ExternalBearer);
                 string avatar = string.IsNullOrEmpty(user.Avatar) ? "" : user.Avatar;
                 string email  = string.IsNullOrEmpty(user.Email) ? "" : user.Email;
@@ -46,12 +53,16 @@ namespace Ecommerce.Web.Providers
                 identity.AddClaim(new Claim("avatar", avatar));
                 identity.AddClaim(new Claim("email", email));
                 identity.AddClaim(new Claim("username", user.UserName));
+                identity.AddClaim(new Claim("roles",JsonConvert.SerializeObject(roles)));
+                identity.AddClaim(new Claim("permissions", JsonConvert.SerializeObject(permissionViewModels)));
                 var props = new AuthenticationProperties(new Dictionary<string, string>
                     {
                         {"fullName", user.FullName},
                         {"avatar", avatar },
                         {"email", email},
-                        {"username", user.UserName}
+                        {"username", user.UserName},
+                        {"permissions", JsonConvert.SerializeObject(permissionViewModels) },
+                        {"roles", JsonConvert.SerializeObject(roles) },
                     });
                 context.Validated(new AuthenticationTicket(identity, props));
             }

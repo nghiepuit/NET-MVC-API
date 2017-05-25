@@ -41,7 +41,7 @@
                 {
                     new Function() {ID = "SYSTEM", Name = "Hệ thống",ParentId = null,DisplayOrder = 1,Status = true,URL = "/",IconCss = "fa-desktop"  },
                     new Function() {ID = "ROLE", Name = "Nhóm",ParentId = "SYSTEM",DisplayOrder = 1,Status = true,URL = "/main/role/index",IconCss = "fa-home"  },
-                    new Function() {ID = "FUNCTION", Name = "Chức năng",ParentId = "SYSTEM",DisplayOrder = 2,Status = true,URL = "/main/function/index",IconCss = "fa-home"  },
+                    new Function() {ID = "FUNCTION", Name = "Chức năng",ParentId = "SYSTEM",DisplayOrder = 2,Status = true,URL = "/main/func/index",IconCss = "fa-home"  },
                     new Function() {ID = "USER", Name = "Người dùng",ParentId = "SYSTEM",DisplayOrder =3,Status = true,URL = "/main/user/index",IconCss = "fa-home"  },
                     new Function() {ID = "ACTIVITY", Name = "Nhật ký",ParentId = "SYSTEM",DisplayOrder = 4,Status = true,URL = "/main/activity/index",IconCss = "fa-home"  },
                     new Function() {ID = "ERROR", Name = "Lỗi",ParentId = "SYSTEM",DisplayOrder = 5,Status = true,URL = "/main/error/index",IconCss = "fa-home"  },
@@ -124,14 +124,14 @@
 
                     if (!roleManager.Roles.Any())
                     {
-                        roleManager.Create(new AppRole { Name = "Super Admin", Description = "Super Admin" });
+                        roleManager.Create(new AppRole { Name = "SuperAdmin", Description = "Super Admin" });
                         roleManager.Create(new AppRole { Name = "Admin", Description = "Admin" });
                         roleManager.Create(new AppRole { Name = "Member", Description = "Member" });
                     }
 
                     var adminUser = manager.FindByName("nghiepuit");
 
-                    manager.AddToRoles(adminUser.Id, new string[] { "Super Admin", "Admin", "Member" });
+                    manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin", "Member" });
                 }
             }
         }

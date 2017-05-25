@@ -1,4 +1,11 @@
 ﻿using AutoMapper;
+using Ecommerce.Common.Exceptions;
+using Ecommerce.Model.Models;
+using Ecommerce.Service;
+using Ecommerce.Web.Infrastructure.Core;
+using Ecommerce.Web.Infrastructure.Extensions;
+using Ecommerce.Web.Models;
+using Ecommerce.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +13,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Ecommerce.Common.Exceptions;
-using Ecommerce.Model.Models;
-using Ecommerce.Service;
-using Ecommerce.Web.App_Start;
-using Ecommerce.Web.Infrastructure.Core;
-using Ecommerce.Web.Infrastructure.Extensions;
-using Ecommerce.Web.Models;
 
 namespace Ecommerce.Web.Api
 {
@@ -20,7 +20,6 @@ namespace Ecommerce.Web.Api
     [RoutePrefix("api/appUser")]
     public class AppUserController : ApiControllerBase
     {
-
         public AppUserController(IErrorService errorService)
             : base(errorService)
         {
@@ -28,6 +27,7 @@ namespace Ecommerce.Web.Api
 
         [Route("getlistpaging")]
         [HttpGet]
+        [Permission(Action = "Read", Function = "USER")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize, string filter = null)
         {
             return CreateHttpResponse(request, () =>
@@ -53,7 +53,7 @@ namespace Ecommerce.Web.Api
 
         [Route("detail/{id}")]
         [HttpGet]
-        //[Authorize(Roles = "ViewUser")]
+        [Permission(Action = "Read", Function = "USER")]
         public async Task<HttpResponseMessage> Details(HttpRequestMessage request, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -76,7 +76,7 @@ namespace Ecommerce.Web.Api
 
         [HttpPost]
         [Route("add")]
-        //[Authorize(Roles = "AddUser")]
+        [Permission(Action = "Create", Function = "USER")]
         public async Task<HttpResponseMessage> Create(HttpRequestMessage request, AppUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -114,7 +114,7 @@ namespace Ecommerce.Web.Api
 
         [HttpPut]
         [Route("update")]
-        //[Authorize(Roles = "UpdateUser")]
+        [Permission(Action = "Update", Function = "USER")]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, AppUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -150,7 +150,7 @@ namespace Ecommerce.Web.Api
 
         [HttpDelete]
         [Route("delete")]
-        //[Authorize(Roles ="DeleteUser")]
+        [Permission(Action = "Delete", Function = "USER")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {
             var appUser = await AppUserManager.FindByIdAsync(id);

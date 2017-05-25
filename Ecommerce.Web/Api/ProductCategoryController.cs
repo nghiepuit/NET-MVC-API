@@ -46,6 +46,32 @@ namespace Ecommerce.Web.Api
             });
         }
 
+        [Route("getall")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, string filter)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _productCategoryService.GetAll();
+
+                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
+        }
+
+        [Route("getallhierachy")]
+        [HttpGet]
+        public HttpResponseMessage GetAllHierachy(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var response = request.CreateResponse(HttpStatusCode.OK, GetCategoryViewModel());
+                return response;
+            });
+        }
+
         [Route("getbyid/{id:int}")]
         [HttpGet]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
@@ -72,7 +98,7 @@ namespace Ecommerce.Web.Api
                 var model = _productCategoryService.GetAll(keyword);
 
                 totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x => x.CreatedDate).Skip((page-1) * pageSize).Take(pageSize);
 
                 var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
 
@@ -216,5 +242,50 @@ namespace Ecommerce.Web.Api
                 return response;
             });
         }
+
+        private List<ProductCategoryViewModel> GetCategoryViewModel(long? selectedParent = null)
+        {
+            List<ProductCategoryViewModel> items = new List<ProductCategoryViewModel>();
+
+            //get all of them from DB
+            var allCategorys = _productCategoryService.GetAll();
+            //get parent categories
+            IEnumerable<ProductCategory> parentCategorys = allCategorys.Where(c => c.ParentID == null);
+
+            foreach (var cat in parentCategorys)
+            {
+                //add the parent category to the item list
+                items.Add(new ProductCategoryViewModel
+                {
+                    ID = cat.ID,
+                    Name = cat.Name,
+                    DisplayOrder = cat.DisplayOrder,
+                    Status = cat.Status,
+                    CreatedDate = cat.CreatedDate
+                });
+                //now get all its children (separate Category in case you need recursion)
+                GetSubTree(allCategorys.ToList(), cat, items);
+            }
+            return items;
+        }
+        private void GetSubTree(IList<ProductCategory> allCats, ProductCategory parent, IList<ProductCategoryViewModel> items)
+        {
+            var subCats = allCats.Where(c => c.ParentID == parent.ID);
+            foreach (var cat in subCats)
+            {
+                //add this category
+                items.Add(new ProductCategoryViewModel
+                {
+                    ID = cat.ID,
+                    Name = parent.Name + " >> " + cat.Name,
+                    DisplayOrder = cat.DisplayOrder,
+                    Status = cat.Status,
+                    CreatedDate = cat.CreatedDate
+                });
+                //recursive call in case your have a hierarchy more than 1 level deep
+                GetSubTree(allCats, cat, items);
+            }
+        }
+
     }
 }

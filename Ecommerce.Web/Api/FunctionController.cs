@@ -33,7 +33,7 @@ namespace Ecommerce.Web.Api
             {
                 HttpResponseMessage response = null;
                 IEnumerable<Function> model;
-                if (User.IsInRole("Admin"))
+                if (User.IsInRole("SuperAdmin"))
                 {
                     model = _functionService.GetAll(string.Empty);
                 }
