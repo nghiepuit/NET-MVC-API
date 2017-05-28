@@ -22,43 +22,19 @@
                                 <li><a href="#"><img src="/Assets/images/demos/shop/fr.png" alt="French">French</a></li>
                             </ul>
                         </div>
-
-                        <div class="compare-dropdown">
-                            <a href="#"><i class="fa fa-retweet"></i> Compare (2)</a>
-
-                            <div class="compare-dropdownmenu">
-                                <div class="dropdownmenu-wrapper">
-                                    <ul class="compare-products">
-                                        <li class="product">
-                                            <a href="#" class="btn-remove" title="Remove Product"><i class="fa fa-times"></i></a>
-                                            <h4 class="product-name"><a href="demo-shop-12-product-details.html">White top</a></h4>
-                                        </li>
-                                        <li class="product">
-                                            <a href="#" class="btn-remove" title="Remove Product"><i class="fa fa-times"></i></a>
-                                            <h4 class="product-name"><a href="demo-shop-12-product-details.html">Blue Women Shirt</a></h4>
-                                        </li>
-                                    </ul>
-
-                                    <div class="compare-actions">
-                                        <a href="#" class="action-link">Clear All</a>
-                                        <a href="#" class="btn btn-primary">Compare</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <div class="top-menu-area">
                         <a href="#">Links <i class="fa fa-caret-down"></i></a>
                         <ul class="top-menu">
-                            <li><a href="demo-shop-12-myaccount.html">My Account</a></li>
-                            <li><a href="#">Daily Deal</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="demo-shop-12-blog.html">Blog</a></li>
-                            <li><a href="demo-shop-12-login.html">Log in</a></li>
+                            <li><a href="gioi-thieu.html">Giới Thiệu</a></li>
+                            <li><a href="tai-khoan.html">Tài Khoản</a></li>
+                            <li><a href="gio-hang.html">Giỏ Hàng</a></li>
+                            <li><a href="dang-ky.html">Đăng Ký</a></li>
+                            <li><a href="dang-nhap.html">Đăng Nhập</a></li>
                         </ul>
                     </div>
-                    <p class="welcome-msg">DEFAULT WELCOME MSG!</p>
                 </div>
             </div>
             <div class="header-container container">
@@ -177,7 +153,7 @@
             </div>
             <div class="header-container header-nav">
                 <div class="container">
-                    <div class="main-dropdown-menu shown">
+                    <div class="main-dropdown-menu">
                         <a href="#" class="main-toggle-btn">
                             <i class="fa fa-bars"></i>DANH MỤC SẢN PHẨM
                         </a>
@@ -192,10 +168,10 @@
                                     </li>
                                     @foreach (var category in Model.Where(x => x.ParentID == null))
                                     {
-                                        var url = "/" + category.Alias + ".html";
+                                        var url = "/" + category.Alias + ".pc-" + category.ID + ".html";
                                         var childCategories = Model.Where(x => x.ParentID == category.ID);
                                         <li class="dropdown dropdown-full-color dropdown-primary">
-                                            
+
                                             @if (childCategories.Count() > 0)
                                             {
                                                 <a class="dropdown-toggle" href="@url">
@@ -204,7 +180,7 @@
                                                 <ul class="dropdown-menu">
                                                     @foreach (var childCategory in childCategories)
                                                     {
-                                                        var childUrl = "/" + childCategory.Alias + ".html";
+                                                        var childUrl = "/" + childCategory.Alias + ".pc-" + childCategory.ID + ".html";
                                                         <li>
                                                             <a href="@childUrl">
                                                                 @childCategory.Name

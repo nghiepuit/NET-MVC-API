@@ -7,6 +7,9 @@ namespace Ecommerce.Web.Models
         public IEnumerable<SlideViewModel> Slides { set; get; }
         public IEnumerable<ProductViewModel> LastestProducts { set; get; }
         public IEnumerable<ProductViewModel> HotProducts { set; get; }
+        public IEnumerable<ProductViewModel> NewProducts { set; get; }
+        public IEnumerable<ProductViewModel> SalesProducts { set; get; }
+        public IEnumerable<ProductViewModel> FeaProducts { set; get; }
 
         public string Title { set; get; }
         public string MetaKeyword { set; get; }

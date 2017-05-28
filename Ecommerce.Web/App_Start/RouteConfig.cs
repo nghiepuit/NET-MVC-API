@@ -38,16 +38,30 @@ namespace Ecommerce.Web
             );
 
             routes.MapRoute(
+                name: "Register",
+                url: "dang-ky.html",
+                defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
+                namespaces: new string[] { "Ecommerce.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Product Category",
-                url: "{alias}.html",
-                defaults: new { controller = "Product", action = "Category" },
+                url: "{alias}.pc-{id}.html",
+                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
                 namespaces: new string[] { "Ecommerce.Web.Controllers" }
             );
 
             routes.MapRoute(
                 name: "Product",
-                url: "{alias}.p-{id}.html",
-                defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
+                url: "{alias}.p-{productID}.html",
+                defaults: new { controller = "Product", action = "Detail", productID = UrlParameter.Optional },
+                namespaces: new string[] { "Ecommerce.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Cart",
+                url: "gio-hang.html",
+                defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "Ecommerce.Web.Controllers" }
             );
 

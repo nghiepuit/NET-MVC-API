@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Ecommerce.Common;
+﻿using Ecommerce.Common;
 using Ecommerce.Data.Infrastructure;
 using Ecommerce.Data.Repositories;
 using Ecommerce.Model.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ecommerce.Service
 {
@@ -22,6 +22,8 @@ namespace Ecommerce.Service
         IEnumerable<Product> GetLastest(int top);
 
         IEnumerable<Product> GetHotProduct(int top);
+
+        IEnumerable<Product> GetSalesProduct(int top);
 
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow);
 
@@ -155,6 +157,13 @@ namespace Ecommerce.Service
         public IEnumerable<Product> GetHotProduct(int top)
         {
             return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetSalesProduct(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.PromotionPrice != null && x.PromotionPrice > 0 && x.PromotionPrice < x.Price)
+                                     .OrderByDescending(x => (x.Price - x.PromotionPrice))
+                                     .Take(top);
         }
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)

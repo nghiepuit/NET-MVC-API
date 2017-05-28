@@ -35,6 +35,18 @@ namespace Ecommerce.Web.Controllers
             var hotProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(hotProduct);
             homeViewModel.HotProducts = hotProductViewModel;
 
+            var feaProduct = _productService.GetHotProduct(3);
+            var feaProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(feaProduct);
+            homeViewModel.FeaProducts = feaProductViewModel;
+
+            var salesProduct = _productService.GetSalesProduct(3);
+            var salesProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(salesProduct);
+            homeViewModel.SalesProducts = salesProductViewModel;
+
+            var newProduct = _productService.GetLastest(3);
+            var newProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(newProduct);
+            homeViewModel.NewProducts = newProductViewModel;            
+
             return View(homeViewModel);
         }
 

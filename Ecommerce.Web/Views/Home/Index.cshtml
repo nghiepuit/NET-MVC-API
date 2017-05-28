@@ -1,8 +1,15 @@
-﻿@{
+﻿@model Ecommerce.Web.Models.HomeViewModel
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
-@model Ecommerce.Web.Models.HomeViewModel
+
+@section footerJS{
+    <script>
+        $('.container .main-dropdown-menu').addClass('open');
+    </script>
+}
+
 <div class="container">
     <div class="home-slider-container">
         <div class="col-md-9 col-md-offset-3">
@@ -125,255 +132,141 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="one-product">
-                    <h3>FEATURED</h3>
+                    <h3>Sản Phẩm Nổi Bật</h3>
 
                     <div class="owl-carousel owl-theme" data-plugin-options="{'items':1, 'loop': false}">
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-1.jpg" alt="Product Name">
-                                </a>
+                        @foreach (var product in Model.FeaProducts)
+                        {
+                            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+                            var discount = Math.Round(double.Parse((100 - ((product.PromotionPrice / product.Price) * 100)).ToString()));
+                            <div class="product">
+                                <figure class="product-image-area">
+                                    <a href="@url" title="Product Name" class="product-image">
+                                        <img src="@product.ThumbnailImage" alt="@product.Name" title="@product.Name">
+                                    </a>
 
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                                <div class="product-label"><span class="new">New</span></div>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Noa Sheer Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
+                                    <a href="#" class="product-quickview">
+                                        <i class="fa fa-share-square-o"></i>
+                                        <span>Quick View</span>
+                                    </a>
+                                    <div class="product-label"><span class="new">Hot</span></div>
+                                    @if (discount > 0)
+                                    {
+                                        <div class="product-label"><span class="discount">-@discount%</span></div>
+                                    }
+                                </figure>
+                                <div class="product-details-area">
+                                    <h2 class="product-name"><a href="@url" title="@product.Name">@product.Name</a></h2>
+                                    <div class="product-ratings">
+                                        <div class="ratings-box">
+                                            <div class="rating" style="width:60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-price-box">
+                                        @if (product.PromotionPrice.HasValue)
+                                        {
+                                            <span class="old-price">@product.PromotionPrice.Value.ToString("N0") đ</span>
+                                        }
+                                        <span class="product-price">@product.Price</span>
                                     </div>
                                 </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$80.00</span>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-1-2.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Woman Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="old-price">$99.00</span>
-                                    <span class="product-price">$89.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-1-3.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">White Fashion Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$120.00</span>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4">
                 <div class="one-product">
-                    <h3>Sales</h3>
+                    <h3>Khuyến Mãi</h3>
 
                     <div class="owl-carousel owl-theme" data-plugin-options="{'items':1, 'loop': false}">
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-2.jpg" alt="Product Name">
-                                </a>
+                        @foreach (var product in Model.SalesProducts)
+                        {
+                            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+                            var discount = Math.Round(double.Parse((100 - ((product.PromotionPrice / product.Price) * 100)).ToString()));
+                            <div class="product">
+                                <figure class="product-image-area">
+                                    <a href="@url" title="Product Name" class="product-image">
+                                        <img src="@product.ThumbnailImage" alt="@product.Name" title="@product.Name">
+                                    </a>
 
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Short-Pink</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
+                                    <a href="#" class="product-quickview">
+                                        <i class="fa fa-share-square-o"></i>
+                                        <span>Quick View</span>
+                                    </a>
+                                    <div class="product-label"><span class="new">Sale</span></div>
+                                    @if (discount > 0)
+                                    {
+                                        <div class="product-label"><span class="discount">-@discount%</span></div>
+                                    }
+                                </figure>
+                                <div class="product-details-area">
+                                    <h2 class="product-name"><a href="@url" title="@product.Name">@product.Name</a></h2>
+                                    <div class="product-ratings">
+                                        <div class="ratings-box">
+                                            <div class="rating" style="width:60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-price-box">
+                                        @if (product.PromotionPrice.HasValue)
+                                        {
+                                            <span class="old-price">@product.PromotionPrice.Value.ToString("N0") đ</span>
+                                        }
+                                        <span class="product-price">@product.Price</span>
                                     </div>
                                 </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$80.00</span>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-2-2.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                                <div class="product-label"><span class="discount">-25%</span></div>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="old-price">$99.00</span>
-                                    <span class="product-price">$89.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-2-3.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Sweater</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$120.00</span>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-4">
                 <div class="one-product">
-                    <h3>New Arrivals</h3>
+                    <h3>Sản Phẩm Mới</h3>
 
                     <div class="owl-carousel owl-theme" data-plugin-options="{'items':1, 'loop': false}">
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-3.jpg" alt="Product Name">
-                                </a>
+                        @foreach (var product in Model.NewProducts)
+                        {
+                            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+                            var discount = Math.Round(double.Parse((100 - ((product.PromotionPrice / product.Price) * 100)).ToString()));
+                            <div class="product">
+                                <figure class="product-image-area">
+                                    <a href="@url" title="Product Name" class="product-image">
+                                        <img src="@product.ThumbnailImage" alt="@product.Name" title="@product.Name">
+                                    </a>
 
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                                <div class="product-label"><span class="new">New</span></div>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Short-White</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
+                                    <a href="#" class="product-quickview">
+                                        <i class="fa fa-share-square-o"></i>
+                                        <span>Quick View</span>
+                                    </a>
+                                    <div class="product-label"><span class="new">New</span></div>
+                                    @if (discount > 0)
+                                    {
+                                        <div class="product-label"><span class="discount">-@discount%</span></div>
+                                    }
+                                </figure>
+                                <div class="product-details-area">
+                                    <h2 class="product-name"><a href="@url" title="@product.Name" >@product.Name</a></h2>
+                                    <div class="product-ratings">
+                                        <div class="ratings-box">
+                                            <div class="rating" style="width:60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-price-box">
+                                        @if (product.PromotionPrice.HasValue)
+                                        {
+                                            <span class="old-price">@product.PromotionPrice.Value.ToString("N0") đ</span>
+                                        }
+                                        <span class="product-price">@product.Price</span>
                                     </div>
                                 </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$80.00</span>
-                                </div>
                             </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-3-2.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Black Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="old-price">$99.00</span>
-                                    <span class="product-price">$89.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product">
-                            <figure class="product-image-area">
-                                <a href="demo-shop-12-product-details.html" title="Product Name" class="product-image">
-                                    <img src="/Assets/images/demos/shop/products/shop10/product-slide-3-3.jpg" alt="Product Name">
-                                </a>
-
-                                <a href="#" class="product-quickview">
-                                    <i class="fa fa-share-square-o"></i>
-                                    <span>Quick View</span>
-                                </a>
-                            </figure>
-                            <div class="product-details-area">
-                                <h2 class="product-name"><a href="demo-shop-12-product-details.html" title="Product Name">Fashion Blouse</a></h2>
-                                <div class="product-ratings">
-                                    <div class="ratings-box">
-                                        <div class="rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="product-price-box">
-                                    <span class="product-price">$120.00</span>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -386,7 +279,7 @@
         <div class="row">
             <div class="col-xs-6 col-sm-3">
                 <a href="#" class="banner">
-                    <img src="/Assets/images/demos/shop/banners/shop10/banner1.jpg" alt="Banner">
+                    <img src="/Assets/images/demos/shop/banners/shop3/banner3.jpg" alt="Banner" style="max-height: 215px;">
                 </a>
             </div>
             <div class="col-xs-6 col-sm-3">
@@ -399,7 +292,7 @@
 
             <div class="col-xs-6 col-sm-3">
                 <a href="#" class="banner">
-                    <img src="/Assets/images/demos/shop/banners/shop10/banner3.jpg" alt="Banner">
+                    <img src="/Assets/images/demos/shop/banners/shop3/banner5.jpg" alt="Banner" style="max-height: 215px;">
                 </a>
             </div>
             <div class="col-xs-6 col-sm-3">
