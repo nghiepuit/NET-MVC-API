@@ -30,6 +30,11 @@ namespace Ecommerce.Web.Controllers
             var lastestProduct = _productService.GetLastest(8);
             var lastestProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProduct);
             homeViewModel.LastestProducts = lastestProductViewModel;
+
+            var hotProduct = _productService.GetHotProduct(10);
+            var hotProductViewModel = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(hotProduct);
+            homeViewModel.HotProducts = hotProductViewModel;
+
             return View(homeViewModel);
         }
 

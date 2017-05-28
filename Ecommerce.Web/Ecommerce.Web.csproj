@@ -346,7 +346,7 @@
     <Content Include="Views\Product\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Folder Include="Assets\App_LocalResources\" />
     <Folder Include="Reports\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
