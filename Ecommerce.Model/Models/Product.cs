@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Ecommerce.Model.Abstract;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Ecommerce.Model.Abstract;
 
 namespace Ecommerce.Model.Models
 {
@@ -52,6 +52,6 @@ namespace Ecommerce.Model.Models
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }
 
-        public virtual IEnumerable<ProductTag> ProductTags { set; get; }
+        public virtual ICollection<ProductTag> ProductTags { set; get; }
     }
 }

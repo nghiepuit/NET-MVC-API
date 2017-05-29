@@ -17,7 +17,7 @@ namespace Ecommerce.Service
 
         IEnumerable<Product> GetAll();
 
-        IEnumerable<Product> GetAll(string keyword);
+        IEnumerable<Product> GetAll(int? categoryId, string keyword);
 
         IEnumerable<Product> GetLastest(int top);
 
@@ -48,6 +48,8 @@ namespace Ecommerce.Service
         IEnumerable<Product> GetListProductByTag(string tagId, int page, int pagesize, out int totalRow);
 
         bool SellProduct(int productId, int quantity);
+
+        IEnumerable<Tag> GetListProductTag(string searchText);
     }
 
     public class ProductService : IProductService
@@ -102,15 +104,19 @@ namespace Ecommerce.Service
 
         public IEnumerable<Product> GetAll()
         {
-            return _productRepository.GetAll();
+            return _productRepository.GetAll(new string[] { "ProductCategory", "ProductTags" });
         }
 
-        public IEnumerable<Product> GetAll(string keyword)
+        public IEnumerable<Product> GetAll(int? categoryId, string keyword)
         {
+            var query = _productRepository.GetAll(new string[] { "ProductCategory", "ProductTags" });
             if (!string.IsNullOrEmpty(keyword))
-                return _productRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
-            else
-                return _productRepository.GetAll();
+                query = query.Where(x => x.Name.Contains(keyword));
+
+            if (categoryId.HasValue)
+                query = query.Where(x => x.CategoryID == categoryId.Value);
+
+            return query;
         }
 
         public Product GetById(int id)
@@ -161,9 +167,7 @@ namespace Ecommerce.Service
 
         public IEnumerable<Product> GetSalesProduct(int top)
         {
-            return _productRepository.GetMulti(x => x.Status && x.PromotionPrice != null && x.PromotionPrice > 0 && x.PromotionPrice < x.Price)
-                                     .OrderByDescending(x => (x.Price - x.PromotionPrice))
-                                     .Take(top);
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => (x.Price - x.PromotionPrice)).Take(top);
         }
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
@@ -276,6 +280,11 @@ namespace Ecommerce.Service
             else
                 query = _productRepository.GetAll();
             return query;
+        }
+
+        public IEnumerable<Tag> GetListProductTag(string searchText)
+        {
+            return _tagRepository.GetMulti(x => x.Type == CommonConstants.ProductTag && searchText.Contains(x.Name));
         }
     }
 }

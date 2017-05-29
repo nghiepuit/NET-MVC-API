@@ -1,4 +1,10 @@
 ﻿using AutoMapper;
+using Ecommerce.Common;
+using Ecommerce.Model.Models;
+using Ecommerce.Service;
+using Ecommerce.Web.Infrastructure.Core;
+using Ecommerce.Web.Infrastructure.Extensions;
+using Ecommerce.Web.Models;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -10,12 +16,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using Ecommerce.Common;
-using Ecommerce.Model.Models;
-using Ecommerce.Service;
-using Ecommerce.Web.Infrastructure.Core;
-using Ecommerce.Web.Infrastructure.Extensions;
-using Ecommerce.Web.Models;
 
 namespace Ecommerce.Web.Api
 {
@@ -42,8 +42,22 @@ namespace Ecommerce.Web.Api
             Func<HttpResponseMessage> func = () =>
             {
                 var model = _productService.GetAll();
-
                 var responseData = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(model);
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            };
+            return CreateHttpResponse(request, func);
+        }
+
+        [Route("gettags")]
+        [HttpGet]
+        public HttpResponseMessage GetTags(HttpRequestMessage request, string text)
+        {
+            Func<HttpResponseMessage> func = () =>
+            {
+                var model = _productService.GetListProductTag(text);
+
+                var responseData = Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(model);
 
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
                 return response;
@@ -51,7 +65,7 @@ namespace Ecommerce.Web.Api
             return CreateHttpResponse(request, func);
         }
 
-        [Route("getbyid/{id:int}")]
+        [Route("detail/{id:int}")]
         [HttpGet]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
         {
@@ -69,17 +83,17 @@ namespace Ecommerce.Web.Api
 
         [Route("getall")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int? categoryId, string keyword, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
-                var model = _productService.GetAll(keyword);
+                var model = _productService.GetAll(categoryId, keyword);
 
                 totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x => x.CreatedDate).Skip(page - 1 * pageSize).Take(pageSize).ToList();
 
-                var responseData = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
+                var responseData = Mapper.Map<List<Product>, List<ProductViewModel>>(query);
 
                 var paginationSet = new PaginationSet<ProductViewModel>()
                 {
@@ -93,7 +107,7 @@ namespace Ecommerce.Web.Api
             });
         }
 
-        [Route("create")]
+        [Route("add")]
         [HttpPost]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryVm)
         {

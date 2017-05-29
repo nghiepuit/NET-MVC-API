@@ -21,7 +21,6 @@ namespace Ecommerce.Web.Models
 
         public bool IncludedVAT { get; set; }
 
-
         public int? Warranty { set; get; }
 
         public string Description { set; get; }
@@ -50,6 +49,7 @@ namespace Ecommerce.Web.Models
 
         public string Tags { set; get; }
 
+        public bool Checked { set; get; }
 
         public decimal OriginalPrice { set; get; }
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
