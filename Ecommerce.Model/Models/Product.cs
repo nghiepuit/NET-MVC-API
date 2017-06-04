@@ -53,5 +53,6 @@ namespace Ecommerce.Model.Models
         public virtual ProductCategory ProductCategory { set; get; }
 
         public virtual ICollection<ProductTag> ProductTags { set; get; }
+
     }
 }

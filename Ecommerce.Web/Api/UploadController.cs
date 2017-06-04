@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Ecommerce.Service;
+using Ecommerce.Web.Infrastructure.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Ecommerce.Service;
-using Ecommerce.Web.Infrastructure.Core;
 
 namespace Ecommerce.Web.Api
 {
@@ -20,12 +20,11 @@ namespace Ecommerce.Web.Api
 
         [HttpPost]
         [Route("saveImage")]
-        public HttpResponseMessage SaveImage()
+        public HttpResponseMessage SaveImage(string type)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             try
             {
-
                 var httpRequest = HttpContext.Current.Request;
 
                 foreach (string file in httpRequest.Files)
@@ -35,7 +34,6 @@ namespace Ecommerce.Web.Api
                     var postedFile = httpRequest.Files[file];
                     if (postedFile != null && postedFile.ContentLength > 0)
                     {
-
                         int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB
 
                         IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
@@ -43,7 +41,6 @@ namespace Ecommerce.Web.Api
                         var extension = ext.ToLower();
                         if (!AllowedFileExtensions.Contains(extension))
                         {
-
                             var message = string.Format("Please Upload image of type .jpg,.gif,.png.");
 
                             dict.Add("error", message);
@@ -51,7 +48,6 @@ namespace Ecommerce.Web.Api
                         }
                         else if (postedFile.ContentLength > MaxContentLength)
                         {
-
                             var message = string.Format("Please Upload a file upto 1 mb.");
 
                             dict.Add("error", message);
@@ -59,7 +55,31 @@ namespace Ecommerce.Web.Api
                         }
                         else
                         {
-                            var directory = "/UploadedFiles/Avatars/";
+                            string directory = string.Empty;
+                            if (type == "avatar")
+                            {
+                                directory = "/UploadedFiles/Avatars/";
+                            }
+                            else if (type == "category")
+                            {
+                                directory = "/UploadedFiles/ProductCategories/";
+                            }
+                            else if (type == "product")
+                            {
+                                directory = "/UploadedFiles/Products/";
+                            }
+                            else if (type == "news")
+                            {
+                                directory = "/UploadedFiles/News/";
+                            }
+                            else if (type == "banner")
+                            {
+                                directory = "/UploadedFiles/Banners/";
+                            }
+                            else
+                            {
+                                directory = "/UploadedFiles/";
+                            }
                             if (!Directory.Exists(HttpContext.Current.Server.MapPath(directory)))
                             {
                                 Directory.CreateDirectory(HttpContext.Current.Server.MapPath(directory));
@@ -78,12 +98,10 @@ namespace Ecommerce.Web.Api
                 var res = string.Format("Please Upload a image.");
                 dict.Add("error", res);
                 return Request.CreateResponse(HttpStatusCode.NotFound, dict);
-
             }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex); ;
-
             }
         }
     }

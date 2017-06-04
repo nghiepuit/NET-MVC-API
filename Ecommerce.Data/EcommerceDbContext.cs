@@ -38,11 +38,9 @@ namespace Ecommerce.Data
         public DbSet<AppRole> AppRoles { set; get; }
         public DbSet<IdentityUserRole> UserRoles { set; get; }
 
-
         public DbSet<Color> Colors { set; get; }
-        public DbSet<ProductColor> ProductColors { set; get; }
         public DbSet<Size> Sizes { set; get; }
-        public DbSet<ProductSize> ProductSizes { set; get; }
+        public DbSet<ProductQuantity> ProductQuantities { set; get; }
         public DbSet<ProductImage> ProductImages { set; get; }
 
         public static EcommerceDbContext Create()

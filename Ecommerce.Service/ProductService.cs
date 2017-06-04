@@ -286,5 +286,7 @@ namespace Ecommerce.Service
         {
             return _tagRepository.GetMulti(x => x.Type == CommonConstants.ProductTag && searchText.Contains(x.Name));
         }
+
     }
+
 }
