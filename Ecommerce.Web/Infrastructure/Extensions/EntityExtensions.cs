@@ -17,6 +17,7 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             postCategory.DisplayOrder = postCategoryVm.DisplayOrder;
             postCategory.Image = postCategoryVm.Image;
             postCategory.HomeFlag = postCategoryVm.HomeFlag;
+
             postCategory.CreatedDate = postCategoryVm.CreatedDate;
             postCategory.CreatedBy = postCategoryVm.CreatedBy;
             postCategory.UpdatedDate = postCategoryVm.UpdatedDate;
@@ -34,8 +35,10 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             productCategory.Alias = productCategoryVm.Alias;
             productCategory.ParentID = productCategoryVm.ParentID;
             productCategory.DisplayOrder = productCategoryVm.DisplayOrder;
+            productCategory.HomeOrder = productCategoryVm.HomeOrder;
             productCategory.Image = productCategoryVm.Image;
             productCategory.HomeFlag = productCategoryVm.HomeFlag;
+            productCategory.HomeOrder = productCategoryVm.HomeOrder;
             productCategory.CreatedDate = productCategoryVm.CreatedDate;
             productCategory.CreatedBy = productCategoryVm.CreatedBy;
             productCategory.UpdatedDate = productCategoryVm.UpdatedDate;
@@ -102,18 +105,53 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             feedback.CreatedDate = DateTime.Now;
         }
 
+        public static void UpdateProductQuantity(this ProductQuantity quantity, ProductQuantityViewModel quantityVm)
+        {
+            quantity.ColorId = quantityVm.ColorId;
+            quantity.ProductId = quantityVm.ProductId;
+            quantity.SizeId = quantityVm.SizeId;
+            quantity.Quantity = quantityVm.Quantity;
+        }
         public static void UpdateOrder(this Order order, OrderViewModel orderVm)
         {
             order.CustomerName = orderVm.CustomerName;
-            order.CustomerAddress = orderVm.CustomerName;
-            order.CustomerEmail = orderVm.CustomerName;
-            order.CustomerMobile = orderVm.CustomerName;
-            order.CustomerMessage = orderVm.CustomerName;
-            order.PaymentMethod = orderVm.CustomerName;
+            order.CustomerAddress = orderVm.CustomerAddress;
+            order.CustomerEmail = orderVm.CustomerEmail;
+            order.CustomerMobile = orderVm.CustomerMobile;
+            order.CustomerMessage = orderVm.CustomerMessage;
+            order.PaymentMethod = orderVm.PaymentMethod;
             order.CreatedDate = DateTime.Now;
             order.CreatedBy = orderVm.CreatedBy;
+            order.PaymentStatus = orderVm.PaymentStatus;
             order.Status = orderVm.Status;
             order.CustomerId = orderVm.CustomerId;
+        }
+
+        public static void UpdateProductImage(this ProductImage image, ProductImageViewModel imageVm)
+        {
+            image.ProductId = imageVm.ProductId;
+            image.Path = imageVm.Path;
+            image.Caption = imageVm.Caption;
+        }
+        public static void UpdateFunction(this Function function, FunctionViewModel functionVm)
+        {
+            function.Name = functionVm.Name;
+            function.DisplayOrder = functionVm.DisplayOrder;
+            function.IconCss = functionVm.IconCss;
+            function.Status = functionVm.Status;
+            function.ParentId = functionVm.ParentId;
+            function.Status = functionVm.Status;
+            function.URL = functionVm.URL;
+            function.ID = functionVm.ID;
+        }
+        public static void UpdatePermission(this Permission permission, PermissionViewModel permissionVm)
+        {
+            permission.RoleId = permissionVm.RoleId;
+            permission.FunctionId = permissionVm.FunctionId;
+            permission.CanCreate = permissionVm.CanCreate;
+            permission.CanDelete = permissionVm.CanDelete;
+            permission.CanRead = permissionVm.CanRead;
+            permission.CanUpdate = permissionVm.CanUpdate;
         }
 
         public static void UpdateApplicationRole(this AppRole appRole, ApplicationRoleViewModel appRoleViewModel, string action = "add")
@@ -144,27 +182,6 @@ namespace Ecommerce.Web.Infrastructure.Extensions
             appUser.Status = appUserViewModel.Status;
             appUser.Address = appUserViewModel.Address;
             appUser.Avatar = appUserViewModel.Avatar;
-        }
-
-        public static void UpdateFunction(this Function function, FunctionViewModel functionVm)
-        {
-            function.Name = functionVm.Name;
-            function.DisplayOrder = functionVm.DisplayOrder;
-            function.IconCss = functionVm.IconCss;
-            function.Status = functionVm.Status;
-            function.ParentId = functionVm.ParentId;
-            function.Status = functionVm.Status;
-            function.URL = functionVm.URL;
-            function.ID = functionVm.ID;
-        }
-        public static void UpdatePermission(this Permission permission, PermissionViewModel permissionVm)
-        {
-            permission.RoleId = permissionVm.RoleId;
-            permission.FunctionId = permissionVm.FunctionId;
-            permission.CanCreate = permissionVm.CanCreate;
-            permission.CanDelete = permissionVm.CanDelete;
-            permission.CanRead = permissionVm.CanRead;
-            permission.CanUpdate = permissionVm.CanUpdate;
         }
     }
 }
