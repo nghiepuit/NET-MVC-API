@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Ecommerce.Web.Models.RegisterViewModel
+@using BotDetect.Web.Mvc
+@{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
@@ -7,69 +9,89 @@
     <div class="wrapper-container">
         <section class="form-section register-form">
             <div class="container">
-                <h1 class="h2 heading-primary font-weight-normal mb-md mt-xs">Create an Account</h1>
+                <h1 class="h2 heading-primary font-weight-normal mb-md mt-xs">Đăng ký tài khoản</h1>
                 <div class="featured-box featured-box-primary featured-box-flat featured-box-text-left mt-md">
                     <div class="box-content">
-                        <form action="#">
-                            <h4 class="heading-primary text-uppercase mb-lg">PERSONAL INFORMATION</h4>
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken();
+                            @Html.ValidationSummary(false, "");
+                            if (ViewData["SuccessMessage"] != null)
+                            {
+                                <div class="alert alert-success success-msg mb-xl" role="alert">
+                                    <strong>Chúc mừng !</strong> Bạn đã đăng ký thành công !<br />
+                                    Click <a href="/dang-nhap.html">vào đây</a> để đăng nhập
+                                </div>
+                            }
+                            <h4 class="heading-primary text-uppercase mb-lg">THÔNG TIN CÁ NHÂN</h4>
                             <div class="row">
                                 <div class="col-sm-4 col-md-3">
                                     <div class="form-group">
-                                        <label class="font-weight-normal">First Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 col-md-3">
-                                    <div class="form-group">
-                                        <label class="font-weight-normal">Middle Name</label>
-                                        <input type="text" class="form-control">
+                                        <label class="font-weight-normal">Họ Tên<span class="required">*</span></label>
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="col-sm-4 col-md-5">
                                     <div class="form-group">
-                                        <label class="font-weight-normal">Last Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control" required>
+                                        <label class="font-weight-normal">Địa Chỉ<span class="required">*</span></label>
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="font-weight-normal">Số Điện Thoại <span class="required">*</span></label>
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label class="font-weight-normal">Email Address <span class="required">*</span></label>
-                                        <input type="email" class="form-control" required>
+                                        <label class="font-weight-normal">Tên Đăng Nhập <span class="required">*</span></label>
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
                                     </div>
-                                    <div class="checkbox mb-xlg">
-                                        <label>
-                                            <input type="checkbox" value="1"> Sign Up for Newsletter
-                                        </label>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="font-weight-normal">Địa Chỉ Email <span class="required">*</span></label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
                                     </div>
-                                    <h4 class="heading-primary text-uppercase mb-lg">LOGIN INFORMATION</h4>
+                                </div>
+                                <div class="col-xs-12">
+                                    <h4 class="heading-primary text-uppercase mb-lg">Thông Tin Đăng Nhập</h4>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="font-weight-normal">Password <span class="required">*</span></label>
-                                        <input type="password" class="form-control" required>
+                                        <label class="font-weight-normal">Mật Khẩu <span class="required">*</span></label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="font-weight-normal">Confirm Password <span class="required">*</span></label>
-                                        <input type="password" class="form-control" required>
+                                        <label class="font-weight-normal">Mã xác nhận <span class="required">*</span></label>
+                                        @{
+                                            MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
+                                        }
+                                        @Html.Captcha(registerCaptcha)
+                                        <br/>
+                                        @Html.TextBox("CaptchaCode", null, new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <p class="required mt-lg mb-none">* Required Fields</p>
+                                    <p class="required mt-lg mb-none">* Bắt Buộc</p>
                                     <div class="form-action clearfix mt-none">
-                                        <a href="demo-shop-10-login.html" class="pull-left"><i class="fa fa-angle-double-left"></i> Back</a>
-                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                        <a href="trang-chu.html" class="pull-left"><i class="fa fa-angle-double-left"></i> Trở Về Trang Chủ</a>
+                                        <input type="submit" class="btn btn-primary" value="Đăng Ký">
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                                            }
                     </div>
                 </div>
             </div>

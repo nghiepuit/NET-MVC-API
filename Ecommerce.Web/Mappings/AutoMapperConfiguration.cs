@@ -26,6 +26,8 @@ namespace Ecommerce.Web.Mappings
                 cfg.CreateMap<Permission, PermissionViewModel>();
                 cfg.CreateMap<ProductImage, ProductImageViewModel>();
                 cfg.CreateMap<ProductQuantity, ProductQuantityViewModel>();
+                cfg.CreateMap<Color, ColorViewModel>();
+                cfg.CreateMap<Size, SizeViewModel>();
                 cfg.CreateMap<Order, OrderViewModel>();
                 cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
             });

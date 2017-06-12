@@ -8,6 +8,7 @@ namespace Ecommerce.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*botdetect}", new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
 
             routes.MapRoute(
                 name: "Home1",
@@ -45,6 +46,13 @@ namespace Ecommerce.Web
             );
 
             routes.MapRoute(
+                name: "Search",
+                url: "tim-kiem.html",
+                defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+                namespaces: new string[] { "Ecommerce.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Product Category",
                 url: "{alias}.pc-{id}.html",
                 defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
@@ -59,9 +67,23 @@ namespace Ecommerce.Web
             );
 
             routes.MapRoute(
+                name: "TagList",
+                url: "tag/{tagid}.html",
+                defaults: new { controller = "Product", action = "ListByTag", tagid = UrlParameter.Optional },
+                namespaces: new string[] { "Ecommerce.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Cart",
                 url: "gio-hang.html",
                 defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "Ecommerce.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Checkout",
+                url: "thanh-toan.html",
+                defaults: new { controller = "Cart", action = "Checkout", id = UrlParameter.Optional },
                 namespaces: new string[] { "Ecommerce.Web.Controllers" }
             );
 

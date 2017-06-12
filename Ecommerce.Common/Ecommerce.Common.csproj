@@ -69,6 +69,7 @@
     <Compile Include="Enums\RoleEnum.cs" />
     <Compile Include="Exceptions\NameDuplicatedException.cs" />
     <Compile Include="MailHelper.cs" />
+    <Compile Include="NumberHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportHelper.cs" />
     <Compile Include="StringHelper.cs" />

@@ -35,6 +35,8 @@ namespace Ecommerce.Web.Api
                 HttpResponseMessage response = null;
                 int totalRow = 0;
                 var model = AppUserManager.Users;
+                if (!string.IsNullOrEmpty(filter))
+                    model = model.Where(x => x.UserName.Contains(filter) || x.FullName.Contains(filter) || x.Email.Contains(filter));
                 IEnumerable<AppUserViewModel> modelVm = Mapper.Map<IEnumerable<AppUser>, IEnumerable<AppUserViewModel>>(model);
                 totalRow = modelVm.Count();
                 PaginationSet<AppUserViewModel> pagedSet = new PaginationSet<AppUserViewModel>()

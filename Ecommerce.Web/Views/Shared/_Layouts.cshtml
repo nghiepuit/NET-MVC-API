@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BotDetect.Web.Mvc;
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -8,7 +9,7 @@
     <title>Ecommerce</title>
     <meta name="keywords" content="Ecommerce" />
     <meta name="description" content="Ecommerce">
-    <meta name="author" content="okler.net">
+    <meta name="author" content="nghiepuit">
     <link rel="shortcut icon" href="/Assets/images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/Assets/images/apple-touch-icon.png">
     <!-- Mobile Metas -->
@@ -16,7 +17,7 @@
     <!-- Web Fonts  -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
     <!-- Vendor CSS -->
-    <link rel="stylesheet" href="/Assets/vendor/bootstrap/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="/Assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Assets/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/Assets/vendor/animate/animate.min.css">
     <link rel="stylesheet" href="/Assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
@@ -32,49 +33,62 @@
     <link rel="stylesheet" href="/Assets/vendor/rs-plugin/css/navigation.css">
     <link rel="stylesheet" href="/Assets/css/skins/skin-shop-12.css">
     <link rel="stylesheet" href="/Assets/css/demos/demo-shop-12.css">
+    <link rel="stylesheet"  href="~/Assets/css/jquery-ui.css" />
     <link rel="stylesheet" href="/Assets/css/custom.css">
-    <script src="/Assets/vendor/modernizr/modernizr.min.js"></script>
-</head>
-<body>
+    <script src="/Assets/vendor/modernizr/modernizr.min.js"></script>*@
+    @Styles.Render("~/css/base")
+    @Scripts.Render("~/js/modernizr")
+        <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
 
-    <div class="body">
-        <!-- Header -->
-        @{ Html.RenderAction("Header", "Home"); }
-        <!-- Header -->
-        <!-- Header -->
-        @{ Html.RenderAction("MobileNav", "Home"); }
-        <!-- Header -->
+        <div class="body">
+            <!-- Header -->
+            @{ Html.RenderAction("Header", "Home"); }
+            <!-- Header -->
+            <!-- Header -->
+            @{ Html.RenderAction("MobileNav", "Home"); }
+            <!-- Header -->
 
-        <div role="main" class="main">
-            @RenderBody()
+            <div role="main" class="main">
+                @RenderBody()
+            </div>
+
+            <!-- Footer -->
+            @{ Html.RenderAction("Footer", "Home"); }
+            <!-- Footer -->
         </div>
 
-        <!-- Footer -->
-        @{ Html.RenderAction("Footer", "Home"); }
-        <!-- Footer -->
-    </div>
-
-    <!-- Vendor -->
-    <script src="/Assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/Assets/vendor/jquery.appear/jquery.appear.min.js"></script>
-    <script src="/Assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-    <script src="/Assets/vendor/jquery-cookie/jquery-cookie.min.js"></script>
-    <script src="/Assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/Assets/vendor/common/common.min.js"></script>
-    <script src="/Assets/vendor/jquery.validation/jquery.validation.min.js"></script>
-    <script src="/Assets/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-    <script src="/Assets/vendor/jquery.gmap/jquery.gmap.min.js"></script>
-    <script src="/Assets/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
-    <script src="/Assets/vendor/isotope/jquery.isotope.min.js"></script>
-    <script src="/Assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-    <script src="/Assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="/Assets/vendor/vide/vide.min.js"></script>
-    <script src="/Assets/js/theme.js"></script>
-    <script src="/Assets/js/views/view.contact.js"></script>
-    <script src="/Assets/js/demos/demo-shop-12.js"></script>
-    <script src="/Assets/js/custom.js"></script>
-    <script src="/Assets/js/theme.init.js"></script>
-
-    @RenderSection("footerJS", required: false);
+        <!-- Vendor -->
+        @*<script src="/Assets/vendor/jquery/jquery.min.js"></script>
+        <script src="/Assets/vendor/jquery.appear/jquery.appear.min.js"></script>
+        <script src="/Assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+        <script src="/Assets/vendor/jquery-cookie/jquery-cookie.min.js"></script>
+        <script src="/Assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/Assets/vendor/common/common.min.js"></script>
+        <script src="/Assets/vendor/jquery.validation/jquery.validation.min.js"></script>
+        <script src="/Assets/vendor/jquery.easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+        <script src="/Assets/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+        <script src="/Assets/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+        <script src="/Assets/vendor/isotope/jquery.isotope.min.js"></script>
+        <script src="/Assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+        <script src="/Assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="/Assets/vendor/vide/vide.min.js"></script>
+        <script src="/Assets/js/theme.js"></script>
+        <script src="/Assets/js/views/view.contact.js"></script>
+        <script src="/Assets/js/demos/demo-shop-12.js"></script>
+        <script src="/Assets/js/custom.js"></script>
+        <script src="/Assets/js/theme.init.js"></script>
+        <script src="~/Assets/js/jquery-migrate-3.0.0.min.js"></script>
+        <script src="~/Assets/js/jquery-ui.min.js"></script>
+        <script src="~/Assets/js/custom-search-autocomplete.js"></script>
+        <script src="~/Assets/js/mustache.min.js"></script>
+        <script src="~/Assets/js/cart.js"></script>
+        <script src="~/Assets/js/numeral.js"></script>
+        <script src="~/Assets/js/jquery.validate.min.js"></script>
+        <script src="~/Assets/js/additional-methods.min.js"></script>*@
+    @Scripts.Render("~/js/jquery")
+    @Scripts.Render("~/js/core")
+    @RenderSection("footerJS", required: false)
 </body>
 </html>

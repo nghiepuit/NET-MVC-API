@@ -172,6 +172,7 @@ namespace Ecommerce.Service
 
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
+
             var query = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
 
             switch (sort)
@@ -184,8 +185,12 @@ namespace Ecommerce.Service
                     query = query.OrderByDescending(x => x.PromotionPrice.HasValue);
                     break;
 
-                case "price":
+                case "priceASC":
                     query = query.OrderBy(x => x.Price);
+                    break;
+
+                case "priceDESC":
+                    query = query.OrderByDescending(x => x.Price);
                     break;
 
                 default:

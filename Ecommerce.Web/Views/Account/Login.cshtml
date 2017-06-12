@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Ecommerce.Web.Models.LoginViewModel
+@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
@@ -7,41 +8,46 @@
     <div class="wrapper-container">
         <section class="form-section">
             <div class="container">
-                <h1 class="h2 heading-primary font-weight-normal mb-md mt-xs">Login or Create an Account</h1>
+                <h1 class="h2 heading-primary font-weight-normal mb-md mt-xs">Đăng Nhập</h1>
                 <div class="featured-box featured-box-primary featured-box-flat featured-box-text-left mt-md">
                     <div class="box-content">
-                        <form action="#">
+                        @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl } ,FormMethod.Post))
+                        {
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-content">
-                                        <h3 class="heading-text-color font-weight-normal">New Customers</h3>
-                                        <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                                        <h3 class="heading-text-color font-weight-normal">Khách hàng mới</h3>
+                                        <p>Tạo tài khoản để nhận được nhiều ưu đãi kh mua hàng.</p>
                                     </div>
                                     <div class="form-action clearfix">
-                                        <a href="demo-shop-10-register.html" class="btn btn-primary">Create an Account</a>
+                                        <a href="dang-ky.html" class="btn btn-primary">Tạo tài khoản</a>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-content">
-                                        <h3 class="heading-text-color font-weight-normal">Registered Customers</h3>
-                                        <p>If you have an account with us, please log in.</p>
+                                        <h3 class="heading-text-color font-weight-normal">Đã có tài khoản</h3>
+                                        <p>Nếu bạn đã có tài khoản vui lòng đăng nhập.</p>
                                         <div class="form-group">
-                                            <label class="font-weight-normal">Email Address <span class="required">*</span></label>
-                                            <input type="email" class="form-control" required>
+                                            <label class="font-weight-normal">Tài Khoản <span class="required">*</span></label>
+                                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
                                         </div>
                                         <div class="form-group">
-                                            <label class="font-weight-normal">Password <span class="required">*</span></label>
-                                            <input type="password" class="form-control" required>
+                                            <label class="font-weight-normal">Mật Khẩu <span class="required">*</span></label>
+                                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                                         </div>
-                                        <p class="required">* Required Fields</p>
+                                        <div class="form-group">
+                                            @Html.CheckBoxFor(model => model.RememberMe)
+                                            Nhớ mật khẩu?
+                                        </div>
+                                        <p class="required">* Bắt Buộc</p>
                                     </div>
                                     <div class="form-action clearfix">
-                                        <a href="#" class="pull-left">Forgot Your Password?</a>
-                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                        <a href="#" class="pull-left">Quên mật khẩu?</a>
+                                        <input type="submit" class="btn btn-primary" value="Đăng Nhập">
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>

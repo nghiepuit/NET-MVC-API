@@ -1,9 +1,8 @@
 ﻿@model Ecommerce.Web.Infrastructure.Core.PaginationSet<Ecommerce.Web.Models.ProductViewModel>
 @{
-    ViewBag.Title = "Index";
+    var keyword = (string)ViewBag.Keyword;
+    ViewBag.Title = "Kết quả tìm kiếm cho từ khóa " + keyword;
     Layout = "~/Views/Shared/_Layouts.cshtml";
-    var category = (Ecommerce.Web.Models.ProductCategoryViewModel)ViewBag.Category;
-    var pcUrl = "/" + category.Alias + ".pc-" + category.ID + ".html";
     var sort = Request["sort"];
 }
 
@@ -11,7 +10,7 @@
     <div class="container">
         <ul class="breadcrumb">
             <li><a href="trang-chu.html">Trang Chủ</a></li>
-            <li class="active">@category.Name</li>
+            <li class="active">@keyword</li>
         </ul>
     </div>
 </section>
@@ -23,10 +22,11 @@
                 <div class="row">
                     <div class="col-md-9 col-md-push-3">
                         <div class="toolbar mb-none">
-                           <h3>@category.Name - <span>@Model.TotalCount sản phẩm</span></h3>
+                            <h3>Kết quả tìm kiếm: @keyword - <span>@Model.TotalCount sản phẩm</span></h3>
                             <div class="sorter">
                                 <form method="GET" name="frmSelect">
                                     <input type="hidden" name="page" value="@Model.PageIndex" />
+                                    <input type="hidden" name="keyword" value="@keyword" />
                                     <div class="sort-by">
                                         <label>Sắp xếp theo:</label>
                                         <select name="sort" onchange="frmSelect.submit()">
@@ -46,13 +46,13 @@
                                         {
                                             if (!String.IsNullOrEmpty(sort))
                                             {
-                                                <li><a href="?page=1&sort=@sort"><i class="fa fa-angle-double-left"></i></a></li>
-                                                <li><a href="?page=@(Model.PageIndex-1)&sort=@sort"><i class="fa fa-caret-left"></i></a></li>
+                                                <li><a href="?page=1&sort=@sort&keyword=@keyword"><i class="fa fa-angle-double-left"></i></a></li>
+                                                <li><a href="?page=@(Model.PageIndex-1)&sort=@sort&keyword=@keyword"><i class="fa fa-caret-left"></i></a></li>
                                             }
                                             else
                                             {
-                                                <li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
-                                                <li><a href="?page=@(Model.PageIndex-1)"><i class="fa fa-caret-left"></i></a></li>
+                                                <li><a href="?page=1&keyword=@keyword"><i class="fa fa-angle-double-left"></i></a></li>
+                                                <li><a href="?page=@(Model.PageIndex-1)&keyword=@keyword"><i class="fa fa-caret-left"></i></a></li>
                                             }
                                         }
                                         for (int i = startPageIndex; i <= endPageIndex; i++)
@@ -61,22 +61,22 @@
                                             {
                                                 if (!String.IsNullOrEmpty(sort))
                                                 {
-                                                    <li class="active"><a href="?page=@i&sort=@sort" title="Trang @i">@i</a></li>
+                                                    <li class="active"><a href="?page=@i&sort=@sort&keyword=@keyword" title="Trang @i">@i</a></li>
                                                 }
                                                 else
                                                 {
-                                                    <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+                                                    <li class="active"><a href="?page=@i&keyword=@keyword" title="Trang @i">@i</a></li>
                                                 }
                                             }
                                             else
                                             {
                                                 if (!String.IsNullOrEmpty(sort))
                                                 {
-                                                    <li><a href="?page=@i&sort=@sort" title="Trang @i">@i</a></li>
+                                                    <li><a href="?page=@i&sort=@sort&keyword=@keyword" title="Trang @i">@i</a></li>
                                                 }
                                                 else
                                                 {
-                                                    <li><a href="?page=@i" title="Trang @i">@i</a></li>
+                                                    <li><a href="?page=@i&keyword=@keyword" title="Trang @i">@i</a></li>
                                                 }
                                             }
                                         }
@@ -84,13 +84,13 @@
                                         {
                                             if (!String.IsNullOrEmpty(sort))
                                             {
-                                                <li><a href="?page=@(Model.PageIndex+1)&sort=@sort"><i class="fa fa-caret-right"></i></a></li>
-                                                <li><a href="?page=@Model.TotalPages&sort=@sort"><i class="fa fa-angle-double-right"></i></a></li>
+                                                <li><a href="?page=@(Model.PageIndex+1)&sort=@sort&keyword=@keyword"><i class="fa fa-caret-right"></i></a></li>
+                                                <li><a href="?page=@Model.TotalPages&sort=@sort&keyword=@keyword"><i class="fa fa-angle-double-right"></i></a></li>
                                             }
                                             else
                                             {
-                                                <li><a href="?page=@(Model.PageIndex+1)"><i class="fa fa-caret-right"></i></a></li>
-                                                <li><a href="?page=@Model.TotalPages"><i class="fa fa-angle-double-right"></i></a></li>
+                                                <li><a href="?page=@(Model.PageIndex+1)&keyword=@keyword"><i class="fa fa-caret-right"></i></a></li>
+                                                <li><a href="?page=@Model.TotalPages&keyword=@keyword"><i class="fa fa-angle-double-right"></i></a></li>
                                             }
                                         }
                                     }
@@ -217,7 +217,7 @@
                     <aside class="col-md-3 col-md-pull-9 sidebar shop-sidebar">
                         <h4>Featured</h4>
                         <div class="owl-carousel owl-theme" data-plugin-options="{'items':1, 'margin': 5, 'dots': false, 'nav': true}">
-                            @for (var i = 0; i < ViewBag.FeaProducts.Count; i=i+3)
+                            @for (var i = 0; i < ViewBag.FeaProducts.Count; i = i + 3)
                             {
                                 var product = ViewBag.FeaProducts[i];
                                 var url = "/" + product.Alias + ".p-" + product.ID + ".html";
@@ -244,9 +244,9 @@
                                             </div>
                                         </div>
                                     }
-                                    @if (i+1 < ViewBag.FeaProducts.Count)
+                                    @if (i + 1 < ViewBag.FeaProducts.Count)
                                     {
-                                        product = ViewBag.FeaProducts[i+1];
+                                        product = ViewBag.FeaProducts[i + 1];
                                         url = "/" + product.Alias + ".p-" + product.ID + ".html";
                                         <div class="product product-sm">
                                             <figure class="product-image-area">

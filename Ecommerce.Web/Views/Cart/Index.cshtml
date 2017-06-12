@@ -2,14 +2,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
-
+@section footerJS{
+    <script src="~/Assets/js/cart.js"></script>
+}
 <div class="container main-container mt-8px">
     <div class="wrapper-container">
         <div class="cart">
             <div class="container">
                 <h1 class="h2 heading-primary mt-sm clearfix">
-                    <span>Shopping Cart</span>
-                    <a href="#" class="btn btn-primary pull-right">Proceed to Checkout</a>
+                    <span>Giỏ Hàng Của Bạn</span>
                 </h1>
                 <div class="row">
                     <div class="col-md-8 col-lg-9">
@@ -19,70 +20,21 @@
                                     <tr>
                                         <th></th>
                                         <th></th>
-                                        <th>Product Name</th>
-                                        <th>Unit Price</th>
-                                        <th>Qty</th>
-                                        <th>Subtotal</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số Lượng</th>
+                                        <th>Thành Tiền</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="product-action-td">
-                                            <a href="#" title="Remove product" class="btn-remove"><i class="fa fa-times"></i></a>
-                                        </td>
-                                        <td class="product-image-td">
-                                            <a href="#" title="Product Name">
-                                                <img src="/Assets/images/demos/shop/cart-product1.jpg" alt="Product Name">
-                                            </a>
-                                        </td>
-                                        <td class="product-name-td">
-                                            <h2 class="product-name"><a href="#" title="Product Name">Women Fashion Blouse</a></h2>
-                                        </td>
-                                        <td>$120.00</td>
-                                        <td>
-                                            <div class="qty-holder">
-                                                <a href="#" class="qty-dec-btn" title="Dec">-</a>
-                                                <input type="text" class="qty-input" value="1">
-                                                <a href="#" class="qty-inc-btn" title="Inc">+</a>
-                                                <a href="#" class="edit-qty"><i class="fa fa-pencil"></i></a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-primary">$120.00</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="product-action-td">
-                                            <a href="#" title="Remove product" class="btn-remove"><i class="fa fa-times"></i></a>
-                                        </td>
-                                        <td class="product-image-td">
-                                            <a href="#" title="Product Name">
-                                                <img src="/Assets/images/demos/shop/cart-product2.jpg" alt="Product Name">
-                                            </a>
-                                        </td>
-                                        <td class="product-name-td">
-                                            <h2 class="product-name"><a href="#" title="Product Name">Black Utility Top</a></h2>
-                                        </td>
-                                        <td>$49.00</td>
-                                        <td>
-                                            <div class="qty-holder">
-                                                <a href="#" class="qty-dec-btn" title="Dec">-</a>
-                                                <input type="text" class="qty-input" value="1">
-                                                <a href="#" class="qty-inc-btn" title="Inc">+</a>
-                                                <a href="#" class="edit-qty"><i class="fa fa-pencil"></i></a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-primary">$49.00</span>
-                                        </td>
-                                    </tr>
+                                <tbody id="cartBody">
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="6" class="clearfix">
-                                            <button class="btn btn-default hover-primary btn-continue">Continue Shopping</button>
-                                            <button class="btn btn-default hover-primary btn-update">Update Shopping Cart</button>
-                                            <button class="btn btn-default hover-primary btn-clear">Clear Shopping Cart</button>
+                                            <button class="btn btn-default hover-primary btn-continue" id="btnContinue">Tiếp Tục Mua Hàng</button>
+                                            <button class="btn btn-default hover-primary btn-update" id="btnUpdateCart">Cập Nhật Giỏ Hàng</button>
+                                            <button class="btn btn-default hover-primary btn-clear" id="btnDeleteAll">Xóa Giỏ Hàng</button>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -94,66 +46,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#panel-cart-discount">
-                                            Discount Code
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="panel-cart-discount" class="accordion-body collapse">
-                                    <div class="panel-body">
-                                        <p class="mb-sm">Enter your coupon code if you have one.</p>
-                                        <form action="#">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary btn-block" value="Apply Coupon">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#panel-cart-ship">
-                                            ESTIMATE SHIPPING AND TAX
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="panel-cart-ship" class="accordion-body collapse">
-                                    <div class="panel-body">
-                                        <p class="mb-sm">Enter your destination to get a shipping estimate.</p>
-                                        <form action="#">
-                                            <div class="form-group">
-                                                <label>Contry <span class="required">*</span></label>
-                                                <select name="#" class="form-control">
-                                                    <option value="United States">United States</option>
-                                                    <option value="United Kingdon">United Kingdon</option>
-                                                    <option value="China">China</option>
-                                                    <option value="Russia">Russia</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>State/Province</label>
-                                                <select name="#" class="form-control">
-                                                    <option value="United States">Please select region, state</option>
-                                                    <option value="Alabama">Alabama</option>
-                                                    <option value="Alaska">Alaska</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Zip Code</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                            <input type="submit" class="btn btn-primary btn-block" value="Get a Quote">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
                                         <a class="accordion-toggle" data-toggle="collapse" href="#panel-cart-total">
-                                            Cart Totals
+                                            Tổng Tiền
                                         </a>
                                     </h4>
                                 </div>
@@ -162,18 +56,15 @@
                                         <table class="totals-table">
                                             <tbody>
                                                 <tr>
-                                                    <td>Subtotal</td>
-                                                    <td>$159.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Grand Total</td>
-                                                    <td>$159.00</td>
+                                                    <td>Tổng Tiền</td>
+                                                    <td>
+                                                        <span id="totalAmount"></span> <span class="text-primary">VNĐ</span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div class="totals-table-action">
-                                            <a href="#" class="btn btn-primary btn-block">Proceed to Checkout</a>
-                                            <a href="#" class="btn btn-link btn-block">Checkout with Multiple Addresses</a>
+                                            <a href="#" class="btn btn-primary btn-block" id="btnCheckout">Tiền Hành Thành Toán</a>
                                         </div>
                                     </div>
                                 </div>
@@ -181,81 +72,112 @@
                         </div>
                     </aside>
                 </div>
-                <div class="crosssell-products">
-                    <h2 class="h4"><strong>Based on your selection, you may be interested in the following items:</strong></h2>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-3">
-                            <div class="product product-sm">
-                                <figure class="product-image-area">
-                                    <a href="#" title="Product Name" class="product-image">
-                                        <img src="/Assets/images/demos/shop/cart-product3.jpg" alt="Product Name">
-                                    </a>
-                                </figure>
-                                <div class="product-details-area">
-                                    <h2 class="product-name"><a href="#" title="Product Name">Jane Dress</a></h2>
-                                    <div class="product-price-box">
-                                        <span class="old-price">$120.00</span>
-                                        <span class="product-price">$90.00</span>
+            </div>
+            <div class="container" id="checkout" style="display:none;">
+                <h1 class="h2 heading-primary mt-sm mb-md clearfix">
+                    Thanh Toán
+                </h1>
+
+                <div class="row">
+                    <form method="POST" id="frmCheckout">
+                        <div class="col-md-8">
+                            <div class="form-col">
+                                <h3>Thông Tin Mua Hàng</h3>
+
+                                <div class="checkbox mb-sm">
+                                    <label>
+                                        <input type="checkbox" id="chkUserLoginInfo" value="1">
+                                        Sử dụng thông tin đăng nhập
+                                    </label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>Họ Tên</label>
+                                            <input type="text" class="form-control" id="txtName" name="txtName" required>
+                                        </div>
                                     </div>
-                                    <a href="#" class="btn btn-default hover-primary">Add to Cart</a>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>Địa Chỉ</label>
+                                            <input type="text" class="form-control" id="txtAddress" name="txtAddress" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group wide">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" id="txtEmail" name="txtEmail" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group wide">
+                                            <label>Điện Thoại</label>
+                                            <input type="text" class="form-control" id="txtPhone" name="txtPhone" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>Ghi Chú</label>
+                                            <textarea rows="5" class="form-control" style="resize: none;" id="txtMessage" name="txtMessage"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-col">
+                                <h3>Xác Nhận Thanh Toán</h3>
+
+                                <div>
+                                    <h5>Tổng Tiền <span id="totalAmountTwo">0 </span> VNĐ</h5>
+                                    <a href="#" class="btn btn-primary" id="btnFinishCheckout">Thanh Toán</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="product product-sm">
-                                <figure class="product-image-area">
-                                    <a href="#" title="Product Name" class="product-image">
-                                        <img src="/Assets/images/demos/shop/cart-product4.jpg" alt="Product Name">
-                                    </a>
-                                </figure>
-                                <div class="product-details-area">
-                                    <h2 class="product-name"><a href="#" title="Product Name">Jane Dress - S</a></h2>
-                                    <div class="product-price-box">
-                                        <span class="old-price">$100.00</span>
-                                        <span class="product-price">$89.00</span>
-                                    </div>
-                                    <a href="#" class="btn btn-default hover-primary">Add to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix visible-sm"></div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="product product-sm">
-                                <figure class="product-image-area">
-                                    <a href="#" title="Product Name" class="product-image">
-                                        <img src="/Assets/images/demos/shop/cart-product1.jpg" alt="Product Name">
-                                    </a>
-                                </figure>
-                                <div class="product-details-area">
-                                    <h2 class="product-name"><a href="#" title="Product Name">Jane Dress - XL</a></h2>
-                                    <div class="product-price-box">
-                                        <span class="old-price">$100.00</span>
-                                        <span class="product-price">$69.00</span>
-                                    </div>
-                                    <a href="#" class="btn btn-default hover-primary">Add to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="product product-sm">
-                                <figure class="product-image-area">
-                                    <a href="#" title="Product Name" class="product-image">
-                                        <img src="/Assets/images/demos/shop/cart-product2.jpg" alt="Product Name">
-                                    </a>
-                                </figure>
-                                <div class="product-details-area">
-                                    <h2 class="product-name"><a href="#" title="Product Name">Jane Dress - M</a></h2>
-                                    <div class="product-price-box">
-                                        <span class="old-price">$110.00</span>
-                                        <span class="product-price">$79.00</span>
-                                    </div>
-                                    <a href="#" class="btn btn-default hover-primary">Add to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script id="tplCart" type="x-tmpl-mustache">
+    <tr>
+        <td class="product-action-td">
+            <a href="javascript:" title="Remove product" class="btn-remove btnDeleteItem" data-id="{{ ProductId }}"><i class="fa fa-times"></i></a>
+        </td>
+        <td class="product-image-td">
+            <a href="#" title="{{ ProductName }}">
+                <img src="{{ ProductImage }}" alt="{{ ProductName }}">
+            </a>
+        </td>
+        <td class="product-name-td">
+            <h2 class="product-name"><a href="#" title="{{ ProductName }}">{{ ProductName }}</a></h2>
+        </td>
+        <td>{{ ProductPriceF }} <span class="text-primary">VNĐ</span></td>
+        <td>
+            <div class="qty-holder">
+                <a href="#" class="qty-dec-btn" data-id="{{ ProductId }}" data-price="{{ ProductPrice }}" title="Giảm 1 Sản Phẩm">-</a>
+                <input type="text" disabled data-id="{{ ProductId }}" data-price="{{ ProductPrice }}" class="qty-input qty-input-{{ ProductId }}" value="{{ ProductQuantity }}">
+                <a href="#" class="qty-inc-btn" data-id="{{ ProductId }}" data-price="{{ ProductPrice }}" title="Tăng 1 Sản Phẩm">+</a>
+            </div>
+        </td>
+        <td>
+            <span class="text-primary amount-{{ ProductId }}">{{ ProductTotal }}</span> <span class="text-primary">VNĐ</span>
+        </td>
+    </tr>
+</script>

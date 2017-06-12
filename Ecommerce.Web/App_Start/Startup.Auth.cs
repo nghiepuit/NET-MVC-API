@@ -9,6 +9,7 @@ using System;
 using Ecommerce.Data;
 using Ecommerce.Model.Models;
 using Ecommerce.Web.Providers;
+using Microsoft.Owin.Security.Cookies;
 
 [assembly: OwinStartup(typeof(Ecommerce.Web.App_Start.Startup))]
 
@@ -31,6 +32,7 @@ namespace Ecommerce.Web.App_Start
             //Allow Cross origin for API
             app.UseCors(CorsOptions.AllowAll);
 
+            // .NET API save to token
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/api/oauth/token"),
@@ -39,6 +41,20 @@ namespace Ecommerce.Web.App_Start
                 AllowInsecureHttp = true
             });
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+            // .NET MVC save to cookie
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/dang-nhap.html"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager,AppUser>(
+                            validateInterval: TimeSpan.FromMinutes(30),
+                            regenerateIdentity: (manager,user) => user.GenerateUserIdentityAsync(manager,DefaultAuthenticationTypes.ApplicationCookie)
+                    )
+                }
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
         }
 
